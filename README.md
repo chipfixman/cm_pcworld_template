@@ -51,9 +51,16 @@ npm install
 npm run dev
 ```
 
-- **Site**: http://localhost:3001  
-- **Admin**: http://localhost:3001/admin (login: admin@pcworld.com / admin123)  
+- **Site**: http://localhost:3001 (default **Chinese**)
+- **English**: http://localhost:3001/en
+- **Admin**: http://localhost:3001/admin or /en/admin (login: admin@pcworld.com / admin123)
 - **API**: http://localhost:4000  
+
+## i18n (English & Chinese)
+
+- **Default locale**: Chinese (zh). Root path `/` shows Chinese; `/en` shows English.
+- **Language switcher**: In the header (中文 / EN). All nav links and admin UI use the current locale.
+- **Translations**: Edit `frontend/messages/zh.json` and `frontend/messages/en.json`.
 
 ## Environment
 

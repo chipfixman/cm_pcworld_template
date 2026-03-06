@@ -1,14 +1,15 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
-import { authFetcher, fetcher, type Category } from '@/lib/api';
+import { useTranslations } from 'next-intl';
+import { useRouter } from '@/i18n/navigation';
+import { fetcher, type Category } from '@/lib/api';
 
 const API = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
 
 export default function AdminCategoriesPage() {
   const router = useRouter();
+  const t = useTranslations('admin');
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -40,7 +41,11 @@ export default function AdminCategoriesPage() {
       const res = await fetch(`${API}/categories`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-        body: JSON.stringify({ name: addName, slug: addSlug || addName.toLowerCase().replace(/\s+/g, '-'), description: addDesc || undefined }),
+        body: JSON.stringify({
+          name: addName,
+          slug: addSlug || addName.toLowerCase().replace(/\s+/g, '-'),
+          description: addDesc || undefined,
+        }),
       });
       if (!res.ok) throw new Error('Failed');
       const cat = await res.json();
@@ -97,39 +102,44 @@ export default function AdminCategoriesPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-white">Categories</h1>
+      <h1 className="text-2xl font-bold text-white">{t('categories')}</h1>
       <div className="mt-6 max-w-md">
-        <h2 className="text-lg font-medium text-white">Add category</h2>
+        <h2 className="text-lg font-medium text-white">{t('addCategory')}</h2>
         <form onSubmit={handleCreate} className="mt-2 flex flex-wrap gap-4">
           <input
             value={addName}
-            onChange={(e) => { setAddName(e.target.value); setAddSlug(e.target.value.toLowerCase().replace(/\s+/g, '-')); }}
-            placeholder="Name"
+            onChange={(e) => {
+              setAddName(e.target.value);
+              setAddSlug(e.target.value.toLowerCase().replace(/\s+/g, '-'));
+            }}
+            placeholder={t('name')}
             className="input-field"
             required
           />
           <input
             value={addSlug}
             onChange={(e) => setAddSlug(e.target.value)}
-            placeholder="Slug"
+            placeholder={t('slug')}
             className="input-field"
           />
           <input
             value={addDesc}
             onChange={(e) => setAddDesc(e.target.value)}
-            placeholder="Description"
+            placeholder={t('description')}
             className="input-field min-w-[200px] flex-1"
           />
-          <button type="submit" className="btn btn-primary">Add</button>
+          <button type="submit" className="btn btn-primary">
+            {t('create')}
+          </button>
         </form>
       </div>
       <div className="mt-8 overflow-x-auto rounded-xl border border-border shadow-card">
         <table className="w-full text-left text-sm">
           <thead className="bg-surface">
             <tr>
-              <th className="px-4 py-3 font-medium text-white">Name</th>
-              <th className="px-4 py-3 font-medium text-white">Slug</th>
-              <th className="px-4 py-3 font-medium text-white">Actions</th>
+              <th className="px-4 py-3 font-medium text-white">{t('name')}</th>
+              <th className="px-4 py-3 font-medium text-white">{t('slug')}</th>
+              <th className="px-4 py-3 font-medium text-white">{t('edit')}</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-border">
@@ -138,8 +148,12 @@ export default function AdminCategoriesPage() {
                 <td className="px-4 py-3 text-white">{c.name}</td>
                 <td className="px-4 py-3 text-muted">{c.slug}</td>
                 <td className="px-4 py-3">
-                  <button type="button" onClick={() => startEdit(c)} className="mr-4 text-accent hover:underline">Edit</button>
-                  <button type="button" onClick={() => handleDelete(c.id)} className="text-red-400 hover:underline">Delete</button>
+                  <button type="button" onClick={() => startEdit(c)} className="mr-4 text-accent hover:underline">
+                    {t('edit')}
+                  </button>
+                  <button type="button" onClick={() => handleDelete(c.id)} className="text-red-400 hover:underline">
+                    {t('delete')}
+                  </button>
                 </td>
               </tr>
             ))}
@@ -149,14 +163,33 @@ export default function AdminCategoriesPage() {
       {editing != null && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
           <div className="w-full max-w-md rounded-xl border border-border bg-surface p-6 shadow-card">
-            <h2 className="text-lg font-semibold text-white">Edit category</h2>
+            <h2 className="text-lg font-semibold text-white">{t('editCategory')}</h2>
             <form onSubmit={handleUpdate} className="mt-4 space-y-4">
-              <input value={formName} onChange={(e) => setFormName(e.target.value)} placeholder="Name" className="input-field w-full" required />
-              <input value={formSlug} onChange={(e) => setFormSlug(e.target.value)} placeholder="Slug" className="input-field w-full" required />
-              <input value={formDesc} onChange={(e) => setFormDesc(e.target.value)} placeholder="Description" className="input-field w-full" />
+              <input
+                value={formName}
+                onChange={(e) => setFormName(e.target.value)}
+                placeholder={t('name')}
+                className="input-field w-full"
+                required
+              />
+              <input
+                value={formSlug}
+                onChange={(e) => setFormSlug(e.target.value)}
+                placeholder={t('slug')}
+                className="input-field w-full"
+                required
+              />
+              <input
+                value={formDesc}
+                onChange={(e) => setFormDesc(e.target.value)}
+                placeholder={t('description')}
+                className="input-field w-full"
+              />
               <div className="flex gap-2">
-                <button type="submit" className="btn btn-primary">Save</button>
-                <button type="button" onClick={() => setEditing(null)} className="btn btn-ghost">Cancel</button>
+                <button type="submit" className="btn btn-primary">{t('save')}</button>
+                <button type="button" onClick={() => setEditing(null)} className="btn btn-ghost">
+                  {t('cancel')}
+                </button>
               </div>
             </form>
           </div>

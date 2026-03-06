@@ -1,13 +1,14 @@
-import Link from 'next/link';
+'use client';
 
-const links = [
-  { label: 'Privacy', href: '#' },
-  { label: 'Terms', href: '#' },
-  { label: 'Contact', href: '#' },
-  { label: 'Admin', href: '/admin' },
-];
+import { useTranslations } from 'next-intl';
+import { Link } from '@/i18n/navigation';
+
+const linkKeys = ['privacy', 'terms', 'contact'] as const;
 
 export function Footer() {
+  const t = useTranslations('footer');
+  const tCommon = useTranslations('common');
+
   return (
     <footer className="mt-16 border-t border-border bg-surface">
       <div className="container py-10">
@@ -16,24 +17,21 @@ export function Footer() {
             <Link href="/" className="text-lg font-bold text-white">
               PCWorld
             </Link>
-            <p className="mt-2 max-w-sm text-sm text-muted">
-              Tech news, best picks, reviews, and how-to guides for PCs, laptops, gaming, and software.
-            </p>
+            <p className="mt-2 max-w-sm text-sm text-muted">{t('description')}</p>
           </div>
           <div className="flex gap-8">
-            {links.map(({ label, href }) => (
-              <Link
-                key={label}
-                href={href}
-                className="text-sm text-muted hover:text-accent"
-              >
-                {label}
+            {linkKeys.map((key) => (
+              <Link key={key} href="#" className="text-sm text-muted hover:text-accent">
+                {t(key)}
               </Link>
             ))}
+            <Link href="/admin" className="text-sm text-muted hover:text-accent">
+              {tCommon('admin')}
+            </Link>
           </div>
         </div>
         <p className="mt-8 border-t border-border pt-6 text-center text-sm text-muted">
-          © {new Date().getFullYear()} PCWorld Template. All rights reserved.
+          {t('copyright', { year: new Date().getFullYear() })}
         </p>
       </div>
     </footer>

@@ -1,0 +1,90 @@
+{
+  "common": {
+    "admin": "Admin",
+    "home": "Home",
+    "views": "views",
+    "publishedOn": "Published"
+  },
+  "nav": {
+    "news": "News",
+    "bestPicks": "Best Picks",
+    "reviews": "Reviews",
+    "howTo": "How-To",
+    "deals": "Deals",
+    "allNews": "All News",
+    "laptops": "Laptops",
+    "gaming": "Gaming",
+    "windows": "Windows",
+    "security": "Security",
+    "software": "Software"
+  },
+  "home": {
+    "title": "Latest stories",
+    "subtitle": "Tech news, reviews, and how-to guides",
+    "noArticles": "No articles yet. Add content from the admin dashboard.",
+    "goToAdmin": "Go to Admin →"
+  },
+  "category": {
+    "noArticles": "No articles in this category yet."
+  },
+  "article": {
+    "by": "By",
+    "readMore": "Read more"
+  },
+  "footer": {
+    "description": "Tech news, best picks, reviews, and how-to guides for PCs, laptops, gaming, and software.",
+    "privacy": "Privacy",
+    "terms": "Terms",
+    "contact": "Contact",
+    "copyright": "© {year} PCWorld Template. All rights reserved."
+  },
+  "admin": {
+    "login": "Admin Login",
+    "loginSubtitle": "Sign in to manage content",
+    "email": "Email",
+    "password": "Password",
+    "signIn": "Sign in",
+    "signingIn": "Signing in...",
+    "dashboard": "Dashboard",
+    "dashboardSubtitle": "Manage your content from the sidebar.",
+    "articles": "Articles",
+    "articlesSubtitle": "Create and edit articles",
+    "categories": "Categories",
+    "categoriesSubtitle": "Manage categories",
+    "viewSite": "← View site",
+    "newArticle": "New article",
+    "editArticle": "Edit article",
+    "addCategory": "Add category",
+    "editCategory": "Edit category",
+    "title": "Title",
+    "slug": "Slug",
+    "excerpt": "Excerpt",
+    "body": "Body",
+    "imageUrl": "Image URL",
+    "type": "Type",
+    "category": "Category",
+    "published": "Published",
+    "save": "Save",
+    "cancel": "Cancel",
+    "create": "Create",
+    "createArticle": "Create article",
+    "edit": "Edit",
+    "delete": "Delete",
+    "name": "Name",
+    "description": "Description",
+    "viewOnSite": "View on site",
+    "backToArticles": "← Articles",
+    "noArticlesYet": "No articles yet.",
+    "updated": "Updated",
+    "page": "Page {page} of {total}",
+    "previous": "Previous",
+    "next": "Next",
+    "news": "News",
+    "review": "Review",
+    "howTo": "How-To",
+    "deal": "Deal",
+    "bestPick": "Best Pick",
+    "draft": "Draft",
+    "publishedStatus": "Published"
+  }
+}

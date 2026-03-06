@@ -1,8 +1,10 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useRouter, useParams } from 'next/navigation';
-import Link from 'next/link';
+import { useTranslations } from 'next-intl';
+import { useParams } from 'next/navigation';
+import { useRouter } from '@/i18n/navigation';
+import { Link } from '@/i18n/navigation';
 import { authFetcher, fetcher, type Article, type Category } from '@/lib/api';
 
 const API = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
@@ -10,6 +12,7 @@ const API = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
 export default function EditArticlePage() {
   const router = useRouter();
   const params = useParams();
+  const t = useTranslations('admin');
   const id = Number(params.id);
   const [article, setArticle] = useState<Article | null>(null);
   const [categories, setCategories] = useState<Category[]>([]);
@@ -93,45 +96,53 @@ export default function EditArticlePage() {
   return (
     <div>
       <div className="mb-6 flex items-center gap-4">
-        <Link href="/admin/articles" className="text-muted hover:text-accent">← Articles</Link>
-        <h1 className="text-2xl font-bold text-white">Edit: {article.title}</h1>
+        <Link href="/admin/articles" className="text-muted hover:text-accent">
+          {t('backToArticles')}
+        </Link>
+        <h1 className="text-2xl font-bold text-white">{t('editArticle')}: {article.title}</h1>
       </div>
       <form onSubmit={handleSubmit} className="max-w-2xl space-y-4">
-        {error && <div className="rounded-lg bg-red-500/15 px-3 py-2 text-sm text-red-400">{error}</div>}
+        {error && (
+          <div className="rounded-lg bg-red-500/15 px-3 py-2 text-sm text-red-400">{error}</div>
+        )}
         <div>
-          <label className="block text-sm font-medium text-text">Title *</label>
+          <label className="block text-sm font-medium text-text">{t('title')} *</label>
           <input value={title} onChange={(e) => setTitle(e.target.value)} className="input-field mt-1" required />
         </div>
         <div>
-          <label className="block text-sm font-medium text-text">Slug</label>
+          <label className="block text-sm font-medium text-text">{t('slug')}</label>
           <input value={slug} onChange={(e) => setSlug(e.target.value)} className="input-field mt-1" />
         </div>
         <div>
-          <label className="block text-sm font-medium text-text">Excerpt</label>
+          <label className="block text-sm font-medium text-text">{t('excerpt')}</label>
           <textarea value={excerpt} onChange={(e) => setExcerpt(e.target.value)} className="input-field mt-1" rows={2} />
         </div>
         <div>
-          <label className="block text-sm font-medium text-text">Body *</label>
+          <label className="block text-sm font-medium text-text">{t('body')} *</label>
           <textarea value={body} onChange={(e) => setBody(e.target.value)} className="input-field mt-1" rows={10} required />
         </div>
         <div>
-          <label className="block text-sm font-medium text-text">Image URL</label>
+          <label className="block text-sm font-medium text-text">{t('imageUrl')}</label>
           <input type="url" value={imageUrl} onChange={(e) => setImageUrl(e.target.value)} className="input-field mt-1" />
         </div>
         <div className="flex gap-6">
           <div>
-            <label className="block text-sm font-medium text-text">Type</label>
+            <label className="block text-sm font-medium text-text">{t('type')}</label>
             <select value={type} onChange={(e) => setType(e.target.value)} className="input-field mt-1">
-              <option value="news">News</option>
-              <option value="review">Review</option>
-              <option value="how-to">How-To</option>
-              <option value="deal">Deal</option>
-              <option value="best-pick">Best Pick</option>
+              <option value="news">{t('news')}</option>
+              <option value="review">{t('review')}</option>
+              <option value="how-to">{t('howTo')}</option>
+              <option value="deal">{t('deal')}</option>
+              <option value="best-pick">{t('bestPick')}</option>
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-text">Category</label>
-            <select value={categoryId} onChange={(e) => setCategoryId(e.target.value === '' ? '' : Number(e.target.value))} className="input-field mt-1">
+            <label className="block text-sm font-medium text-text">{t('category')}</label>
+            <select
+              value={categoryId}
+              onChange={(e) => setCategoryId(e.target.value === '' ? '' : Number(e.target.value))}
+              className="input-field mt-1"
+            >
               <option value="">—</option>
               {categories.map((c) => (
                 <option key={c.id} value={c.id}>{c.name}</option>
@@ -141,14 +152,20 @@ export default function EditArticlePage() {
           <div className="flex items-end">
             <label className="flex items-center gap-2">
               <input type="checkbox" checked={published} onChange={(e) => setPublished(e.target.checked)} />
-              <span className="text-sm text-text">Published</span>
+              <span className="text-sm text-text">{t('published')}</span>
             </label>
           </div>
         </div>
         <div className="flex gap-4 pt-4">
-          <button type="submit" disabled={loading} className="btn btn-primary">Save</button>
-          <Link href={`/article/${article.slug}`} className="btn btn-ghost" target="_blank">View on site</Link>
-          <Link href="/admin/articles" className="btn btn-ghost">Cancel</Link>
+          <button type="submit" disabled={loading} className="btn btn-primary">
+            {t('save')}
+          </button>
+          <Link href={`/article/${article.slug}`} className="btn btn-ghost" target="_blank">
+            {t('viewOnSite')}
+          </Link>
+          <Link href="/admin/articles" className="btn btn-ghost">
+            {t('cancel')}
+          </Link>
         </div>
       </form>
     </div>

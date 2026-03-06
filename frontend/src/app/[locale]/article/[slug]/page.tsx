@@ -1,26 +1,40 @@
-import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { setRequestLocale } from 'next-intl/server';
+import { getTranslations } from 'next-intl/server';
+import { Link as I18nLink } from '@/i18n/navigation';
 import { fetcher, type Article } from '@/lib/api';
 
-export default async function ArticlePage({ params }: { params: { slug: string } }) {
+export default async function ArticlePage({
+  params,
+}: {
+  params: Promise<{ locale: string; slug: string }>;
+}) {
+  const { locale, slug } = await params;
+  setRequestLocale(locale);
+
   let article: Article | null = null;
   try {
-    article = await fetcher<Article>(`/articles/slug/${encodeURIComponent(params.slug)}?incView=1`);
+    article = await fetcher<Article>(`/articles/slug/${encodeURIComponent(slug)}?incView=1`);
   } catch {
     notFound();
   }
   if (!article) notFound();
 
+  const t = await getTranslations('common');
+  const tArticle = await getTranslations('article');
+
   return (
     <article className="container py-8">
       <nav className="mb-6 text-sm text-muted">
-        <Link href="/" className="hover:text-accent">Home</Link>
+        <I18nLink href="/" className="hover:text-accent">
+          {t('home')}
+        </I18nLink>
         {article.category && (
           <>
             <span className="mx-2">/</span>
-            <Link href={`/category/${article.category.slug}`} className="hover:text-accent">
+            <I18nLink href={`/category/${article.category.slug}`} className="hover:text-accent">
               {article.category.name}
-            </Link>
+            </I18nLink>
           </>
         )}
         <span className="mx-2">/</span>
@@ -29,24 +43,32 @@ export default async function ArticlePage({ params }: { params: { slug: string }
 
       <header className="mb-8">
         {article.category && (
-          <Link
+          <I18nLink
             href={`/category/${article.category.slug}`}
             className="text-sm font-semibold uppercase tracking-wider text-accent"
           >
             {article.category.name}
-          </Link>
+          </I18nLink>
         )}
         <h1 className="mt-2 text-3xl font-bold leading-tight text-white md:text-4xl">
           {article.title}
         </h1>
         <div className="mt-4 flex flex-wrap gap-4 text-sm text-muted">
-          {article.author && <span>{article.author.name}</span>}
+          {article.author && (
+            <span>
+              {tArticle('by')} {article.author.name}
+            </span>
+          )}
           <span>
             {article.publishedAt
-              ? new Date(article.publishedAt).toLocaleDateString()
-              : new Date(article.createdAt).toLocaleDateString()}
+              ? new Date(article.publishedAt).toLocaleDateString(locale)
+              : new Date(article.createdAt).toLocaleDateString(locale)}
           </span>
-          {article.viewCount > 0 && <span>{article.viewCount} views</span>}
+          {article.viewCount > 0 && (
+            <span>
+              {article.viewCount} {t('views')}
+            </span>
+          )}
         </div>
       </header>
 

@@ -1,17 +1,22 @@
 'use client';
 
-import Link from 'next/link';
+import { useTranslations } from 'next-intl';
+import { useLocale } from 'next-intl';
+import { Link } from '@/i18n/navigation';
 import { useState } from 'react';
 
-const mainNav = [
-  { label: 'News', slug: 'news', children: ['All News', 'Laptops', 'Gaming', 'Windows', 'Security', 'Software'] },
-  { label: 'Best Picks', slug: 'best-picks' },
-  { label: 'Reviews', slug: 'reviews' },
-  { label: 'How-To', slug: 'how-to' },
-  { label: 'Deals', slug: 'deals' },
-];
+const mainNavKeys = [
+  { key: 'news', slug: 'news', children: ['allNews', 'laptops', 'gaming', 'windows', 'security', 'software'] },
+  { key: 'bestPicks', slug: 'best-picks' },
+  { key: 'reviews', slug: 'reviews' },
+  { key: 'howTo', slug: 'how-to' },
+  { key: 'deals', slug: 'deals' },
+] as const;
 
 export function Header() {
+  const t = useTranslations('nav');
+  const tCommon = useTranslations('common');
+  const locale = useLocale();
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -23,28 +28,28 @@ export function Header() {
         </Link>
 
         <nav className="hidden items-center gap-1 md:flex">
-          {mainNav.map((item) => (
+          {mainNavKeys.map((item) => (
             <div
               key={item.slug}
               className="relative"
-              onMouseEnter={() => item.children && setOpenMenu(item.slug)}
+              onMouseEnter={() => 'children' in item && item.children && setOpenMenu(item.slug)}
               onMouseLeave={() => setOpenMenu(null)}
             >
               <Link
                 href={`/category/${item.slug}`}
                 className="block px-3 py-2 text-sm font-medium text-text hover:text-accent"
               >
-                {item.label}
+                {t(item.key)}
               </Link>
-              {item.children && openMenu === item.slug && (
+              {'children' in item && item.children && openMenu === item.slug && (
                 <div className="absolute left-0 top-full min-w-[180px] rounded-lg border border-border bg-surface py-2 shadow-card">
-                  {item.children.map((child) => (
+                  {(item as { children: readonly string[] }).children.map((child) => (
                     <Link
                       key={child}
                       href={`/category/${item.slug}`}
                       className="block px-4 py-2 text-sm text-text hover:bg-surface-hover hover:text-accent"
                     >
-                      {child}
+                      {t(child)}
                     </Link>
                   ))}
                 </div>
@@ -58,8 +63,24 @@ export function Header() {
             href="/admin"
             className="rounded-lg px-3 py-1.5 text-sm text-muted hover:bg-surface-hover hover:text-accent"
           >
-            Admin
+            {tCommon('admin')}
           </Link>
+          <div className="flex rounded-lg border border-border bg-surface-hover overflow-hidden">
+            <Link
+              href="/"
+              locale="zh"
+              className={`px-2.5 py-1 text-xs font-medium ${locale === 'zh' ? 'bg-accent text-white' : 'text-muted hover:text-text'}`}
+            >
+              中文
+            </Link>
+            <Link
+              href="/"
+              locale="en"
+              className={`px-2.5 py-1 text-xs font-medium ${locale === 'en' ? 'bg-accent text-white' : 'text-muted hover:text-text'}`}
+            >
+              EN
+            </Link>
+          </div>
           <button
             type="button"
             className="rounded-lg p-2 text-text hover:bg-surface-hover md:hidden"
@@ -75,14 +96,14 @@ export function Header() {
 
       {mobileOpen && (
         <div className="border-t border-border bg-surface p-4 md:hidden">
-          {mainNav.map((item) => (
+          {mainNavKeys.map((item) => (
             <Link
               key={item.slug}
               href={`/category/${item.slug}`}
               className="block py-2.5 font-medium text-text hover:text-accent"
               onClick={() => setMobileOpen(false)}
             >
-              {item.label}
+              {t(item.key)}
             </Link>
           ))}
         </div>

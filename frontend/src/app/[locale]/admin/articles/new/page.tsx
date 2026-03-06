@@ -1,14 +1,15 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
-import { authFetcher, fetcher, type Category } from '@/lib/api';
+import { useTranslations } from 'next-intl';
+import { Link, useRouter } from '@/i18n/navigation';
+import { fetcher, type Category } from '@/lib/api';
 
 const API = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
 
 export default function NewArticlePage() {
   const router = useRouter();
+  const t = useTranslations('admin');
   const [categories, setCategories] = useState<Category[]>([]);
   const [title, setTitle] = useState('');
   const [slug, setSlug] = useState('');
@@ -78,74 +79,56 @@ export default function NewArticlePage() {
   return (
     <div>
       <div className="mb-6 flex items-center gap-4">
-        <Link href="/admin/articles" className="text-muted hover:text-accent">← Articles</Link>
-        <h1 className="text-2xl font-bold text-white">New article</h1>
+        <Link href="/admin/articles" className="text-muted hover:text-accent">
+          {t('backToArticles')}
+        </Link>
+        <h1 className="text-2xl font-bold text-white">{t('newArticle')}</h1>
       </div>
       <form onSubmit={handleSubmit} className="max-w-2xl space-y-4">
-        {error && <div className="rounded bg-red-500/20 px-3 py-2 text-sm text-red-400">{error}</div>}
+        {error && (
+          <div className="rounded-lg bg-red-500/15 px-3 py-2 text-sm text-red-400">{error}</div>
+        )}
         <div>
-          <label className="block text-sm font-medium text-white">Title *</label>
+          <label className="block text-sm font-medium text-text">{t('title')} *</label>
           <input
             value={title}
-            onChange={(e) => { setTitle(e.target.value); if (!slug) setSlug(slugify(e.target.value)); }}
+            onChange={(e) => {
+              setTitle(e.target.value);
+              if (!slug) setSlug(slugify(e.target.value));
+            }}
             className="input-field mt-1"
             required
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-white">Slug</label>
-          <input
-            value={slug}
-            onChange={(e) => setSlug(e.target.value)}
-            className="input-field mt-1"
-            placeholder="auto from title"
-          />
+          <label className="block text-sm font-medium text-text">{t('slug')}</label>
+          <input value={slug} onChange={(e) => setSlug(e.target.value)} className="input-field mt-1" />
         </div>
         <div>
-          <label className="block text-sm font-medium text-white">Excerpt</label>
-          <textarea
-            value={excerpt}
-            onChange={(e) => setExcerpt(e.target.value)}
-            className="input-field mt-1"
-            rows={2}
-          />
+          <label className="block text-sm font-medium text-text">{t('excerpt')}</label>
+          <textarea value={excerpt} onChange={(e) => setExcerpt(e.target.value)} className="input-field mt-1" rows={2} />
         </div>
         <div>
-          <label className="block text-sm font-medium text-white">Body *</label>
-          <textarea
-            value={body}
-            onChange={(e) => setBody(e.target.value)}
-            className="input-field mt-1"
-            rows={10}
-            required
-          />
+          <label className="block text-sm font-medium text-text">{t('body')} *</label>
+          <textarea value={body} onChange={(e) => setBody(e.target.value)} className="input-field mt-1" rows={10} required />
         </div>
         <div>
-          <label className="block text-sm font-medium text-white">Image URL</label>
-          <input
-            type="url"
-            value={imageUrl}
-            onChange={(e) => setImageUrl(e.target.value)}
-            className="input-field mt-1"
-          />
+          <label className="block text-sm font-medium text-text">{t('imageUrl')}</label>
+          <input type="url" value={imageUrl} onChange={(e) => setImageUrl(e.target.value)} className="input-field mt-1" />
         </div>
         <div className="flex gap-6">
           <div>
-            <label className="block text-sm font-medium text-white">Type</label>
-            <select
-              value={type}
-              onChange={(e) => setType(e.target.value)}
-              className="input-field mt-1"
-            >
-              <option value="news">News</option>
-              <option value="review">Review</option>
-              <option value="how-to">How-To</option>
-              <option value="deal">Deal</option>
-              <option value="best-pick">Best Pick</option>
+            <label className="block text-sm font-medium text-text">{t('type')}</label>
+            <select value={type} onChange={(e) => setType(e.target.value)} className="input-field mt-1">
+              <option value="news">{t('news')}</option>
+              <option value="review">{t('review')}</option>
+              <option value="how-to">{t('howTo')}</option>
+              <option value="deal">{t('deal')}</option>
+              <option value="best-pick">{t('bestPick')}</option>
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-white">Category</label>
+            <label className="block text-sm font-medium text-text">{t('category')}</label>
             <select
               value={categoryId}
               onChange={(e) => setCategoryId(e.target.value === '' ? '' : Number(e.target.value))}
@@ -160,13 +143,17 @@ export default function NewArticlePage() {
           <div className="flex items-end">
             <label className="flex items-center gap-2">
               <input type="checkbox" checked={published} onChange={(e) => setPublished(e.target.checked)} />
-              <span className="text-sm text-text">Published</span>
+              <span className="text-sm text-text">{t('published')}</span>
             </label>
           </div>
         </div>
         <div className="flex gap-4 pt-4">
-          <button type="submit" disabled={loading} className="btn btn-primary">Create article</button>
-          <Link href="/admin/articles" className="btn btn-ghost">Cancel</Link>
+          <button type="submit" disabled={loading} className="btn btn-primary">
+            {t('createArticle')}
+          </button>
+          <Link href="/admin/articles" className="btn btn-ghost">
+            {t('cancel')}
+          </Link>
         </div>
       </form>
     </div>
