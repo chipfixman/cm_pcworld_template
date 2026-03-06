@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
-// import { Article } from '../articles/article.entity';
+import { Article } from '../articles/article.entity';
 
 export enum CategorySlug {
   NEWS = 'news',
@@ -39,6 +39,6 @@ export class Category {
   @Column({ default: 0 })
   sortOrder: number;
 
-  /** @OneToMany(() => Article, (a) => a.category) **/
-  /** articles: Article[]; **/
+  @OneToMany(() => Article, (a) => a.category)
+  articles: Article[];
 }

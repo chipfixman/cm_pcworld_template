@@ -33,11 +33,12 @@ npm install
 npm run start:dev
 ```
 
-Seed admin user and categories (after DB is up):
+Seed admin user, categories, and **mock articles** (after DB is up):
 
 ```bash
 npm run seed
 # Login: admin@pcworld.com / admin123
+# Home page will show 6 mock articles (best laptops, Windows 12, how-to, GPU review, deals, password managers)
 ```
 
 ### 3. Frontend
