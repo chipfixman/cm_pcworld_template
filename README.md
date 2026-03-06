@@ -2,6 +2,8 @@
 
 A full-stack tech news site similar to [PCWorld](https://www.pcworld.com/), with **Next.js** frontend, **NestJS** backend, **MySQL**, **MongoDB**, **Redis**, and an **admin dashboard**.
 
+![screenshot_1](./screenshot_1.png)
+
 ## Stack
 
 - **Frontend**: React, Next.js 14 (App Router)
