@@ -52,8 +52,8 @@ export default async function CategoryPage({
         </div>
       ) : (
         <section className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {items.map((article) => (
-            <ArticleCard key={article.id} article={article} />
+          {items.map((article, index) => (
+            <ArticleCard key={article.id} article={article} index={index} />
           ))}
         </section>
       )}

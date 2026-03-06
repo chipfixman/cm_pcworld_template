@@ -4,11 +4,17 @@ import { useLocale } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import type { Article } from '@/lib/api';
 
-export function ArticleCard({ article }: { article: Article }) {
+type Props = { article: Article; index?: number };
+
+export function ArticleCard({ article, index }: Props) {
   const locale = useLocale();
+  const delayMs = index !== undefined ? index * 40 : 0;
 
   return (
-    <article className="group flex flex-col overflow-hidden rounded-xl border border-border bg-surface shadow-card transition hover:border-accent/50 hover:shadow-glow">
+    <article
+      className="animate-fade-in group flex flex-col overflow-hidden rounded-xl border border-border bg-surface shadow-card transition hover:border-accent/50 hover:shadow-glow"
+      style={delayMs > 0 ? { animationDelay: `${delayMs}ms` } : undefined}
+    >
       <Link href={`/article/${article.slug}`} className="block aspect-video overflow-hidden bg-border">
         {article.imageUrl ? (
           <img

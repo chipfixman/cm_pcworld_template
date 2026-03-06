@@ -38,7 +38,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             </Link>
           </div>
         ) : (
-          items.map((article) => <ArticleCard key={article.id} article={article} />)
+          items.map((article, index) => <ArticleCard key={article.id} article={article} index={index} />)
         )}
       </section>
     </div>

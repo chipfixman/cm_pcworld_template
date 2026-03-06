@@ -26,7 +26,7 @@ export default async function LocaleLayout({ children, params }: Props) {
     <NextIntlClientProvider messages={messages}>
       <LocaleHtmlAttr />
       <Header />
-      <main className="min-h-screen pt-14">{children}</main>
+      <main className="min-h-screen pt-14 animate-fade-in">{children}</main>
       <Footer />
     </NextIntlClientProvider>
   );
