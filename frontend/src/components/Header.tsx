@@ -16,7 +16,7 @@ export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-[var(--color-border)] bg-[var(--color-bg)]/95 backdrop-blur">
+    <header className="sticky top-0 z-50 border-b border-border bg-base/95 backdrop-blur-sm">
       <div className="container flex h-14 items-center justify-between gap-4">
         <Link href="/" className="text-xl font-bold tracking-tight text-white">
           PCWorld
@@ -32,17 +32,17 @@ export function Header() {
             >
               <Link
                 href={`/category/${item.slug}`}
-                className="block px-3 py-2 text-sm font-medium text-[var(--color-text)] hover:text-[var(--color-accent)]"
+                className="block px-3 py-2 text-sm font-medium text-text hover:text-accent"
               >
                 {item.label}
               </Link>
               {item.children && openMenu === item.slug && (
-                <div className="absolute left-0 top-full min-w-[180px] rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] py-2 shadow-lg">
+                <div className="absolute left-0 top-full min-w-[180px] rounded-lg border border-border bg-surface py-2 shadow-card">
                   {item.children.map((child) => (
                     <Link
                       key={child}
                       href={`/category/${item.slug}`}
-                      className="block px-4 py-2 text-sm hover:bg-[var(--color-border)]"
+                      className="block px-4 py-2 text-sm text-text hover:bg-surface-hover hover:text-accent"
                     >
                       {child}
                     </Link>
@@ -56,13 +56,13 @@ export function Header() {
         <div className="flex items-center gap-2">
           <Link
             href="/admin"
-            className="rounded px-3 py-1.5 text-sm text-[var(--color-text-muted)] hover:text-[var(--color-accent)]"
+            className="rounded-lg px-3 py-1.5 text-sm text-muted hover:bg-surface-hover hover:text-accent"
           >
             Admin
           </Link>
           <button
             type="button"
-            className="md:hidden rounded p-2 hover:bg-[var(--color-surface)]"
+            className="rounded-lg p-2 text-text hover:bg-surface-hover md:hidden"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Menu"
           >
@@ -74,12 +74,12 @@ export function Header() {
       </div>
 
       {mobileOpen && (
-        <div className="border-t border-[var(--color-border)] bg-[var(--color-surface)] p-4 md:hidden">
+        <div className="border-t border-border bg-surface p-4 md:hidden">
           {mainNav.map((item) => (
             <Link
               key={item.slug}
               href={`/category/${item.slug}`}
-              className="block py-2 font-medium"
+              className="block py-2.5 font-medium text-text hover:text-accent"
               onClick={() => setMobileOpen(false)}
             >
               {item.label}

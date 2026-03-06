@@ -15,23 +15,23 @@ export default function AdminDashboardPage() {
   return (
     <div>
       <h1 className="text-2xl font-bold text-white">Dashboard</h1>
-      <p className="mt-2 text-[var(--color-text-muted)]">
+      <p className="mt-2 text-muted">
         Manage your content from the sidebar.
       </p>
       <div className="mt-8 grid gap-4 sm:grid-cols-2">
         <Link
           href="/admin/articles"
-          className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-6 transition hover:border-[var(--color-accent)]/50"
+          className="rounded-xl border border-border bg-surface p-6 shadow-card transition hover:border-accent/50 hover:shadow-glow"
         >
           <h2 className="text-lg font-semibold text-white">Articles</h2>
-          <p className="mt-1 text-sm text-[var(--color-text-muted)]">Create and edit articles</p>
+          <p className="mt-1 text-sm text-muted">Create and edit articles</p>
         </Link>
         <Link
           href="/admin/categories"
-          className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-6 transition hover:border-[var(--color-accent)]/50"
+          className="rounded-xl border border-border bg-surface p-6 shadow-card transition hover:border-accent/50 hover:shadow-glow"
         >
           <h2 className="text-lg font-semibold text-white">Categories</h2>
-          <p className="mt-1 text-sm text-[var(--color-text-muted)]">Manage categories</p>
+          <p className="mt-1 text-sm text-muted">Manage categories</p>
         </Link>
       </div>
     </div>

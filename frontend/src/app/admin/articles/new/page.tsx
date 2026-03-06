@@ -78,7 +78,7 @@ export default function NewArticlePage() {
   return (
     <div>
       <div className="mb-6 flex items-center gap-4">
-        <Link href="/admin/articles" className="text-[var(--color-text-muted)] hover:text-[var(--color-accent)]">← Articles</Link>
+        <Link href="/admin/articles" className="text-muted hover:text-accent">← Articles</Link>
         <h1 className="text-2xl font-bold text-white">New article</h1>
       </div>
       <form onSubmit={handleSubmit} className="max-w-2xl space-y-4">
@@ -88,7 +88,7 @@ export default function NewArticlePage() {
           <input
             value={title}
             onChange={(e) => { setTitle(e.target.value); if (!slug) setSlug(slugify(e.target.value)); }}
-            className="mt-1 w-full rounded border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-2 text-white"
+            className="input-field mt-1"
             required
           />
         </div>
@@ -97,7 +97,7 @@ export default function NewArticlePage() {
           <input
             value={slug}
             onChange={(e) => setSlug(e.target.value)}
-            className="mt-1 w-full rounded border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-2 text-white"
+            className="input-field mt-1"
             placeholder="auto from title"
           />
         </div>
@@ -106,7 +106,7 @@ export default function NewArticlePage() {
           <textarea
             value={excerpt}
             onChange={(e) => setExcerpt(e.target.value)}
-            className="mt-1 w-full rounded border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-2 text-white"
+            className="input-field mt-1"
             rows={2}
           />
         </div>
@@ -115,7 +115,7 @@ export default function NewArticlePage() {
           <textarea
             value={body}
             onChange={(e) => setBody(e.target.value)}
-            className="mt-1 w-full rounded border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-2 text-white"
+            className="input-field mt-1"
             rows={10}
             required
           />
@@ -126,7 +126,7 @@ export default function NewArticlePage() {
             type="url"
             value={imageUrl}
             onChange={(e) => setImageUrl(e.target.value)}
-            className="mt-1 w-full rounded border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-2 text-white"
+            className="input-field mt-1"
           />
         </div>
         <div className="flex gap-6">
@@ -135,7 +135,7 @@ export default function NewArticlePage() {
             <select
               value={type}
               onChange={(e) => setType(e.target.value)}
-              className="mt-1 rounded border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-2 text-white"
+              className="input-field mt-1"
             >
               <option value="news">News</option>
               <option value="review">Review</option>
@@ -149,7 +149,7 @@ export default function NewArticlePage() {
             <select
               value={categoryId}
               onChange={(e) => setCategoryId(e.target.value === '' ? '' : Number(e.target.value))}
-              className="mt-1 rounded border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-2 text-white"
+              className="input-field mt-1"
             >
               <option value="">—</option>
               {categories.map((c) => (
@@ -160,7 +160,7 @@ export default function NewArticlePage() {
           <div className="flex items-end">
             <label className="flex items-center gap-2">
               <input type="checkbox" checked={published} onChange={(e) => setPublished(e.target.checked)} />
-              <span className="text-sm text-white">Published</span>
+              <span className="text-sm text-text">Published</span>
             </label>
           </div>
         </div>

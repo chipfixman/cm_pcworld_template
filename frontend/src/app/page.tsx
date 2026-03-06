@@ -15,21 +15,21 @@ export default async function HomePage() {
   const { items } = await getLatest();
 
   return (
-    <div className="container py-8">
+    <div className="container py-10">
       <section className="mb-12">
         <h1 className="mb-2 text-3xl font-bold tracking-tight text-white md:text-4xl">
           Latest stories
         </h1>
-        <p className="text-[var(--color-text-muted)]">
+        <p className="text-muted">
           Tech news, reviews, and how-to guides
         </p>
       </section>
 
       <section className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
         {items.length === 0 ? (
-          <div className="col-span-full rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-12 text-center text-[var(--color-text-muted)]">
+          <div className="col-span-full rounded-xl border border-border bg-surface p-12 text-center text-muted shadow-card">
             <p>No articles yet. Add content from the admin dashboard.</p>
-            <Link href="/admin" className="mt-4 inline-block text-[var(--color-accent)] hover:underline">
+            <Link href="/admin" className="mt-4 inline-block font-medium text-accent hover:underline">
               Go to Admin →
             </Link>
           </div>

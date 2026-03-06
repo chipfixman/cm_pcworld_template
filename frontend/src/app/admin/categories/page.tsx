@@ -92,7 +92,7 @@ export default function AdminCategoriesPage() {
     }
   }
 
-  if (loading) return <div className="text-[var(--color-text-muted)]">Loading...</div>;
+  if (loading) return <div className="text-muted">Loading...</div>;
   if (error) return <div className="text-red-400">{error}</div>;
 
   return (
@@ -105,40 +105,40 @@ export default function AdminCategoriesPage() {
             value={addName}
             onChange={(e) => { setAddName(e.target.value); setAddSlug(e.target.value.toLowerCase().replace(/\s+/g, '-')); }}
             placeholder="Name"
-            className="rounded border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-2 text-white"
+            className="input-field"
             required
           />
           <input
             value={addSlug}
             onChange={(e) => setAddSlug(e.target.value)}
             placeholder="Slug"
-            className="rounded border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-2 text-white"
+            className="input-field"
           />
           <input
             value={addDesc}
             onChange={(e) => setAddDesc(e.target.value)}
             placeholder="Description"
-            className="min-w-[200px] flex-1 rounded border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-2 text-white"
+            className="input-field min-w-[200px] flex-1"
           />
           <button type="submit" className="btn btn-primary">Add</button>
         </form>
       </div>
-      <div className="mt-8 overflow-x-auto rounded-lg border border-[var(--color-border)]">
+      <div className="mt-8 overflow-x-auto rounded-xl border border-border shadow-card">
         <table className="w-full text-left text-sm">
-          <thead className="bg-[var(--color-surface)]">
+          <thead className="bg-surface">
             <tr>
               <th className="px-4 py-3 font-medium text-white">Name</th>
               <th className="px-4 py-3 font-medium text-white">Slug</th>
               <th className="px-4 py-3 font-medium text-white">Actions</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-[var(--color-border)]">
+          <tbody className="divide-y divide-border">
             {categories.map((c) => (
-              <tr key={c.id}>
+              <tr key={c.id} className="hover:bg-surface-hover">
                 <td className="px-4 py-3 text-white">{c.name}</td>
-                <td className="px-4 py-3 text-[var(--color-text-muted)]">{c.slug}</td>
+                <td className="px-4 py-3 text-muted">{c.slug}</td>
                 <td className="px-4 py-3">
-                  <button type="button" onClick={() => startEdit(c)} className="text-[var(--color-accent)] hover:underline mr-4">Edit</button>
+                  <button type="button" onClick={() => startEdit(c)} className="mr-4 text-accent hover:underline">Edit</button>
                   <button type="button" onClick={() => handleDelete(c.id)} className="text-red-400 hover:underline">Delete</button>
                 </td>
               </tr>
@@ -147,13 +147,13 @@ export default function AdminCategoriesPage() {
         </table>
       </div>
       {editing != null && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
-          <div className="w-full max-w-md rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-6">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+          <div className="w-full max-w-md rounded-xl border border-border bg-surface p-6 shadow-card">
             <h2 className="text-lg font-semibold text-white">Edit category</h2>
             <form onSubmit={handleUpdate} className="mt-4 space-y-4">
-              <input value={formName} onChange={(e) => setFormName(e.target.value)} placeholder="Name" className="w-full rounded border border-[var(--color-border)] bg-[var(--color-bg)] px-3 py-2 text-white" required />
-              <input value={formSlug} onChange={(e) => setFormSlug(e.target.value)} placeholder="Slug" className="w-full rounded border border-[var(--color-border)] bg-[var(--color-bg)] px-3 py-2 text-white" required />
-              <input value={formDesc} onChange={(e) => setFormDesc(e.target.value)} placeholder="Description" className="w-full rounded border border-[var(--color-border)] bg-[var(--color-bg)] px-3 py-2 text-white" />
+              <input value={formName} onChange={(e) => setFormName(e.target.value)} placeholder="Name" className="input-field w-full" required />
+              <input value={formSlug} onChange={(e) => setFormSlug(e.target.value)} placeholder="Slug" className="input-field w-full" required />
+              <input value={formDesc} onChange={(e) => setFormDesc(e.target.value)} placeholder="Description" className="input-field w-full" />
               <div className="flex gap-2">
                 <button type="submit" className="btn btn-primary">Save</button>
                 <button type="button" onClick={() => setEditing(null)} className="btn btn-ghost">Cancel</button>

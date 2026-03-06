@@ -88,40 +88,40 @@ export default function EditArticlePage() {
   }
 
   if (error && !article) return <div className="text-red-400">{error}</div>;
-  if (!article) return <div className="text-[var(--color-text-muted)]">Loading...</div>;
+  if (!article) return <div className="text-muted">Loading...</div>;
 
   return (
     <div>
       <div className="mb-6 flex items-center gap-4">
-        <Link href="/admin/articles" className="text-[var(--color-text-muted)] hover:text-[var(--color-accent)]">← Articles</Link>
+        <Link href="/admin/articles" className="text-muted hover:text-accent">← Articles</Link>
         <h1 className="text-2xl font-bold text-white">Edit: {article.title}</h1>
       </div>
       <form onSubmit={handleSubmit} className="max-w-2xl space-y-4">
-        {error && <div className="rounded bg-red-500/20 px-3 py-2 text-sm text-red-400">{error}</div>}
+        {error && <div className="rounded-lg bg-red-500/15 px-3 py-2 text-sm text-red-400">{error}</div>}
         <div>
-          <label className="block text-sm font-medium text-white">Title *</label>
-          <input value={title} onChange={(e) => setTitle(e.target.value)} className="mt-1 w-full rounded border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-2 text-white" required />
+          <label className="block text-sm font-medium text-text">Title *</label>
+          <input value={title} onChange={(e) => setTitle(e.target.value)} className="input-field mt-1" required />
         </div>
         <div>
-          <label className="block text-sm font-medium text-white">Slug</label>
-          <input value={slug} onChange={(e) => setSlug(e.target.value)} className="mt-1 w-full rounded border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-2 text-white" />
+          <label className="block text-sm font-medium text-text">Slug</label>
+          <input value={slug} onChange={(e) => setSlug(e.target.value)} className="input-field mt-1" />
         </div>
         <div>
-          <label className="block text-sm font-medium text-white">Excerpt</label>
-          <textarea value={excerpt} onChange={(e) => setExcerpt(e.target.value)} className="mt-1 w-full rounded border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-2 text-white" rows={2} />
+          <label className="block text-sm font-medium text-text">Excerpt</label>
+          <textarea value={excerpt} onChange={(e) => setExcerpt(e.target.value)} className="input-field mt-1" rows={2} />
         </div>
         <div>
-          <label className="block text-sm font-medium text-white">Body *</label>
-          <textarea value={body} onChange={(e) => setBody(e.target.value)} className="mt-1 w-full rounded border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-2 text-white" rows={10} required />
+          <label className="block text-sm font-medium text-text">Body *</label>
+          <textarea value={body} onChange={(e) => setBody(e.target.value)} className="input-field mt-1" rows={10} required />
         </div>
         <div>
-          <label className="block text-sm font-medium text-white">Image URL</label>
-          <input type="url" value={imageUrl} onChange={(e) => setImageUrl(e.target.value)} className="mt-1 w-full rounded border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-2 text-white" />
+          <label className="block text-sm font-medium text-text">Image URL</label>
+          <input type="url" value={imageUrl} onChange={(e) => setImageUrl(e.target.value)} className="input-field mt-1" />
         </div>
         <div className="flex gap-6">
           <div>
-            <label className="block text-sm font-medium text-white">Type</label>
-            <select value={type} onChange={(e) => setType(e.target.value)} className="mt-1 rounded border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-2 text-white">
+            <label className="block text-sm font-medium text-text">Type</label>
+            <select value={type} onChange={(e) => setType(e.target.value)} className="input-field mt-1">
               <option value="news">News</option>
               <option value="review">Review</option>
               <option value="how-to">How-To</option>
@@ -130,8 +130,8 @@ export default function EditArticlePage() {
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-white">Category</label>
-            <select value={categoryId} onChange={(e) => setCategoryId(e.target.value === '' ? '' : Number(e.target.value))} className="mt-1 rounded border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-2 text-white">
+            <label className="block text-sm font-medium text-text">Category</label>
+            <select value={categoryId} onChange={(e) => setCategoryId(e.target.value === '' ? '' : Number(e.target.value))} className="input-field mt-1">
               <option value="">—</option>
               {categories.map((c) => (
                 <option key={c.id} value={c.id}>{c.name}</option>
@@ -141,7 +141,7 @@ export default function EditArticlePage() {
           <div className="flex items-end">
             <label className="flex items-center gap-2">
               <input type="checkbox" checked={published} onChange={(e) => setPublished(e.target.checked)} />
-              <span className="text-sm text-white">Published</span>
+              <span className="text-sm text-text">Published</span>
             </label>
           </div>
         </div>

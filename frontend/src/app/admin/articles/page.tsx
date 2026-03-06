@@ -28,7 +28,7 @@ export default function AdminArticlesPage() {
       .finally(() => setLoading(false));
   }, [page, router]);
 
-  if (loading) return <div className="text-[var(--color-text-muted)]">Loading...</div>;
+  if (loading) return <div className="text-muted">Loading...</div>;
   if (error) return <div className="text-red-400">{error}</div>;
 
   return (
@@ -37,9 +37,9 @@ export default function AdminArticlesPage() {
         <h1 className="text-2xl font-bold text-white">Articles</h1>
         <Link href="/admin/articles/new" className="btn btn-primary">New article</Link>
       </div>
-      <div className="mt-6 overflow-x-auto rounded-lg border border-[var(--color-border)]">
+      <div className="mt-6 overflow-x-auto rounded-xl border border-border shadow-card">
         <table className="w-full text-left text-sm">
-          <thead className="bg-[var(--color-surface)]">
+          <thead className="bg-surface">
             <tr>
               <th className="px-4 py-3 font-medium text-white">Title</th>
               <th className="px-4 py-3 font-medium text-white">Category</th>
@@ -49,22 +49,22 @@ export default function AdminArticlesPage() {
               <th className="px-4 py-3 font-medium text-white">Actions</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-[var(--color-border)]">
+          <tbody className="divide-y divide-border">
             {items.map((a) => (
-              <tr key={a.id} className="hover:bg-[var(--color-surface)]/50">
+              <tr key={a.id} className="hover:bg-surface-hover">
                 <td className="px-4 py-3 font-medium text-white">{a.title}</td>
-                <td className="px-4 py-3 text-[var(--color-text-muted)]">{a.category?.name ?? '—'}</td>
-                <td className="px-4 py-3 text-[var(--color-text-muted)]">{a.type}</td>
+                <td className="px-4 py-3 text-muted">{a.category?.name ?? '—'}</td>
+                <td className="px-4 py-3 text-muted">{a.type}</td>
                 <td className="px-4 py-3">
                   <span className={a.published ? 'text-green-400' : 'text-amber-400'}>
                     {a.published ? 'Published' : 'Draft'}
                   </span>
                 </td>
-                <td className="px-4 py-3 text-[var(--color-text-muted)]">
+                <td className="px-4 py-3 text-muted">
                   {new Date(a.updatedAt).toLocaleDateString()}
                 </td>
                 <td className="px-4 py-3">
-                  <Link href={`/admin/articles/${a.id}`} className="text-[var(--color-accent)] hover:underline">Edit</Link>
+                  <Link href={`/admin/articles/${a.id}`} className="text-accent hover:underline">Edit</Link>
                 </td>
               </tr>
             ))}
@@ -81,7 +81,7 @@ export default function AdminArticlesPage() {
           >
             Previous
           </button>
-          <span className="flex items-center px-4 text-[var(--color-text-muted)]">
+          <span className="flex items-center px-4 text-muted">
             Page {page} of {Math.ceil(total / 20)}
           </span>
           <button

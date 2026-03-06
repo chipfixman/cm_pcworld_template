@@ -26,18 +26,18 @@ export default async function CategoryPage({ params }: { params: { slug: string 
   const items = list.items;
 
   return (
-    <div className="container py-8">
+    <div className="container py-10">
       <section className="mb-10">
         <h1 className="text-3xl font-bold tracking-tight text-white capitalize md:text-4xl">
           {title}
         </h1>
         {category?.description && (
-          <p className="mt-2 text-[var(--color-text-muted)]">{category.description}</p>
+          <p className="mt-2 text-muted">{category.description}</p>
         )}
       </section>
 
       {items.length === 0 ? (
-        <div className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-12 text-center text-[var(--color-text-muted)]">
+        <div className="rounded-xl border border-border bg-surface p-12 text-center text-muted shadow-card">
           No articles in this category yet.
         </div>
       ) : (

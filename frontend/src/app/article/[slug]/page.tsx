@@ -13,25 +13,25 @@ export default async function ArticlePage({ params }: { params: { slug: string }
 
   return (
     <article className="container py-8">
-      <nav className="mb-6 text-sm text-[var(--color-text-muted)]">
-        <Link href="/" className="hover:text-[var(--color-accent)]">Home</Link>
+      <nav className="mb-6 text-sm text-muted">
+        <Link href="/" className="hover:text-accent">Home</Link>
         {article.category && (
           <>
             <span className="mx-2">/</span>
-            <Link href={`/category/${article.category.slug}`} className="hover:text-[var(--color-accent)]">
+            <Link href={`/category/${article.category.slug}`} className="hover:text-accent">
               {article.category.name}
             </Link>
           </>
         )}
         <span className="mx-2">/</span>
-        <span>{article.title}</span>
+        <span className="text-text">{article.title}</span>
       </nav>
 
       <header className="mb-8">
         {article.category && (
           <Link
             href={`/category/${article.category.slug}`}
-            className="text-sm font-medium uppercase tracking-wider text-[var(--color-accent)]"
+            className="text-sm font-semibold uppercase tracking-wider text-accent"
           >
             {article.category.name}
           </Link>
@@ -39,7 +39,7 @@ export default async function ArticlePage({ params }: { params: { slug: string }
         <h1 className="mt-2 text-3xl font-bold leading-tight text-white md:text-4xl">
           {article.title}
         </h1>
-        <div className="mt-4 flex flex-wrap gap-4 text-sm text-[var(--color-text-muted)]">
+        <div className="mt-4 flex flex-wrap gap-4 text-sm text-muted">
           {article.author && <span>{article.author.name}</span>}
           <span>
             {article.publishedAt
@@ -51,13 +51,13 @@ export default async function ArticlePage({ params }: { params: { slug: string }
       </header>
 
       {article.imageUrl && (
-        <div className="mb-8 aspect-video overflow-hidden rounded-lg bg-[var(--color-border)]">
+        <div className="mb-8 aspect-video overflow-hidden rounded-xl bg-border">
           <img src={article.imageUrl} alt="" className="h-full w-full object-cover" />
         </div>
       )}
 
       <div
-        className="prose prose-invert max-w-none prose-p:leading-relaxed prose-a:text-[var(--color-accent)]"
+        className="prose prose-invert max-w-none prose-p:leading-relaxed prose-p:text-text prose-a:text-accent prose-strong:text-white"
         dangerouslySetInnerHTML={{ __html: article.body.replace(/\n/g, '<br />') }}
       />
     </article>
