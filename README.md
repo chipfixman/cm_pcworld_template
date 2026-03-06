@@ -38,7 +38,7 @@ Seed admin user, categories, and **mock articles** (after DB is up):
 ```bash
 npm run seed
 # Login: admin@pcworld.com / admin123
-# Home page will show 6 mock articles (best laptops, Windows 12, how-to, GPU review, deals, password managers)
+# Adds 46 mock articles: 6 general + 10 best-picks + 10 reviews + 10 how-to + 10 deals. Re-run to add any new mock data.
 ```
 
 ### 3. Frontend
