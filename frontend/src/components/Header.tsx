@@ -21,7 +21,7 @@ export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-base/95 backdrop-blur-sm">
+    <header className="fixed left-0 right-0 top-0 z-50 border-b border-border bg-base/95 backdrop-blur-sm">
       <div className="container flex h-14 items-center justify-between gap-4">
         <Link href="/" className="text-xl font-bold tracking-tight text-white">
           PCWorld
